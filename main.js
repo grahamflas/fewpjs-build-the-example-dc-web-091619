@@ -3,7 +3,58 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+document.addEventListener("DOMContentLoaded", () => {
+  let errorModal = document.getElementById('modal')
+  errorModal.classList.add("hidden")
 
+  let hearts = Array.from( document.getElementsByClassName('like-glyph') )
+  hearts.forEach( heart => heart.addEventListener('click', likeCallback) )
+
+  // hearts.forEach( heart => heart.addEventListener('click', function(){
+  //   mimicServerCall()
+  //     .then( function(){
+  //       debugger
+  //     } )
+  //     .catch( function(error) {
+  //       console.log(error)
+  //       handleError()
+  //     })
+  //     // .catch( () => handleError() )
+  //     // .catch( () => handleError() )
+  // }) )
+});
+
+function likeCallback(){
+  mimicServerCall()
+    .then(updateHeart(event))
+    .catch(error => console.log(error))
+}
+
+
+function updateHeart(event){
+  console.log("got to UpdateHeart()")
+  debugger
+  let currentHeart = event.currentTarget.innerText
+  let newHeart = ""
+
+  if (currentHeart === EMPTY_HEART) {
+    newHeart = FULL_HEART
+  } else {
+    newHeart = EMPTY_HEART
+  }
+
+  event.currentTarget.innerText = newHeart
+}
+
+function handleError(){
+  console.log("Hello from handleError()")
+}
+
+// function heartClickHandler() {
+//   console.log("heart clicked")
+//   event.currentTarget
+//   debugger
+// }
 
 
 
